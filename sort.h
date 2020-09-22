@@ -12,6 +12,8 @@ void insertion_sort(int *arr, int n);
 
 void quick_sort(int *arr, int start, int end);
 
+void merge_sort(int *arr, int *arr_res, int start, int end);
+
 void print_arr(int *arr, int n);
 
 #endif /*__SORT_H__*/

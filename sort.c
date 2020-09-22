@@ -5,6 +5,7 @@ void print_arr(int *arr, int n){
     for(i = 0; i < n; i++){
         printf("%d ", *(arr+i));
     }
+    printf("\n");
 }
 
 static void swap(int *a, int *b){
@@ -49,8 +50,7 @@ void bubble_sort(int *arr, int n){
         print_arr(arr, n);
         printf(" %d\n", i);
         if(flag == 0){
-                printf("%s\n", "No swapping");
-                return;
+            return;
         }
     }
 }
@@ -91,6 +91,53 @@ void insertion_sort(int *arr, int n){
         *(arr+i+1) = key;
     }
     
+}
+
+static void merge(int *arr, int *arr_res, int start, int mid, int end){
+    int i, j, k=start;
+    
+    /*When elements are present in both  array*/
+    for(i=start, j=mid+1; i<=mid && j<=end;){
+        if (*(arr+i) < *(arr+j)){
+             *(arr_res+k) = *(arr+i);
+             i++;k++;
+        }
+        else{
+            *(arr_res+k) = *(arr+j);
+            j++;k++;
+        }
+    }
+    
+    /*When elements are present only in 1st array (start->mid)*/
+    if (j <= end){
+        for(;j<=end;){
+            *(arr_res+k) = *(arr+j);
+            j++;k++;
+        }
+    }
+    
+    /*When elements are present only in 2ns array (mid+1->end)*/
+    else if (i<=mid){
+        for(;i<=mid;){
+            *(arr_res+k) = *(arr+i);
+            i++;k++;
+        }
+    }
+    
+    /*Copy elements from temp array to main array*/
+    for(i=start, j=start; i<=end;i++,j++){
+        *(arr+i) = *(arr_res+j);
+    }
+}
+
+void merge_sort(int *arr, int *arr_res, int start, int end){
+    int mid;
+    if(start < end){
+        mid = (start + end)/2;
+        merge_sort(arr, arr_res, start, mid);
+        merge_sort(arr, arr_res, mid+1, end);
+        merge(arr, arr_res, start, mid, end);
+    }
 }
 
 /*
