@@ -4,4 +4,4 @@ This library contains the implementation of the following sorting algorithms:
     2. Bubble sort
     3. Insertion sort
     4. Quick sort
-    
+    5. Merge sort
