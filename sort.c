@@ -33,7 +33,6 @@ static int partition(int *arr, int start, int end){
     }
     i++;
     swap((arr+i), (arr+j));
-    //print_arr(arr, end);
     return i;
 }
 
@@ -47,8 +46,6 @@ void bubble_sort(int *arr, int n){
                 flag = 1;
             }
         }
-        print_arr(arr, n);
-        printf(" %d\n", i);
         if(flag == 0){
             return;
         }
@@ -86,7 +83,6 @@ void insertion_sort(int *arr, int n){
         while(i>=0 && (key < *(arr+i))){
             *(arr+i+1) = *(arr+i);
             i--;
-        //    printf("in loop\n" );
         }
         *(arr+i+1) = key;
     }
@@ -140,6 +136,37 @@ void merge_sort(int *arr, int *arr_res, int start, int end){
     }
 }
 
+void heapify(int *arr, int n, int i){
+    int largest = i;
+    int left = 2*i+1;
+    int right = 2*i+2;
+    
+    if(left <= n && *(arr+left) > *(arr+largest))
+        largest = left;
+    
+    if(right <=n && *(arr+right) > *(arr+largest))
+        largest = right;
+        
+    if (i!=largest){
+        swap((arr+i), (arr+largest));
+        heapify(arr, n, largest);
+    }
+}
+
+void heap_sort(int *arr, int n){
+    if (n<0)
+        return;
+    int i = n;
+    while(i>0){
+        heapify (arr, n, (i-1)/2);
+        i = i-2;
+    }
+    
+    swap((arr+0), (arr+n));
+    n--;
+    
+    heap_sort(arr, n);
+}
 /*
 int main(int argc, char const *argv[]) {
     int i, n, *arr = (int*)malloc(sizeof(int)*5);
